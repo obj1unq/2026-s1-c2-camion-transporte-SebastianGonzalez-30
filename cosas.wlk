@@ -80,7 +80,7 @@ object arenaAGranel {
 
 	method modo() {
 	  
-		return
+		return modo
 
 	}
 
@@ -131,24 +131,24 @@ object paqueteDeLadrillos {
 
 object bateriaAntiAerea {
   
-	var tieneMisiles = false 
+	var misilesCargados = false 
 
-	method tieneMisiles() {
+	method misilesCargados() {
 	  
-		return tieneMisiles
+		return misilesCargados
 
 	}
 
 	method cargarMisiles() {
 	  
-		tieneMisiles = true
+		misilesCargados = true
 
 	}
 
 	method peso() {
 	  
 		return 
-		if (tieneMisiles) {
+		if (misilesCargados) {
         
 		self.pesoConMisiles()
 
@@ -174,8 +174,7 @@ object bateriaAntiAerea {
 	method nivelPeligrosidad() {
     
 	
-	return 
-		if (tieneMisiles) {
+	return if (misilesCargados) {
         
 		self.peligrosidadConMisiles()
     	} 
@@ -183,6 +182,7 @@ object bateriaAntiAerea {
         
 		self.peligrosidadSinMisiles()
     }
+	
 	}
 
 	method peligrosidadConMisiles() {

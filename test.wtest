@@ -1,0 +1,77 @@
+import camion.*
+import cosas.*
+
+describe "pesos del camion" {
+  test "es Peso par" {
+    
+    arenaAGranel.peso(50)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+    
+    assert.that(camion.sonCosasConPesoPar())
+
+  }
+
+    test "hay algo que pese x kilos" {
+      
+    arenaAGranel.peso(50)
+    camion.cargar(bumblebee)
+    camion.cargar(arenaAGranel)
+
+    assert.that(camion.algunoPesa(50))    
+    assert.that(camion.algunoPesa(800))
+    assert.notThat(camion.algunoPesa(500))
+    }
+
+    test "peso del camion" {
+      
+        camion.cargar(bumblebee)
+        assert.equals(1800, camion.pesoTotal())
+
+    }
+
+    test "esta excedido de peso?" {
+
+    paqueteDeLadrillos.cantidadDeLadrillosPorPaquete(300)  
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    assert.equals(2400, camion.pesoTotal())
+    assert.notThat(camion.estaExcedidoDePeso())
+    camion.descargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantidadDeLadrillosPorPaquete(400)
+    camion.cargar(paqueteDeLadrillos)
+    assert.that(camion.estaExcedidoDePeso())
+
+    }
+
+    test "tiene algo de este nivel de peligrosidad" {
+      
+      camion.cargar(bumblebee)
+      camion.cargar(bateriaAntiAerea)
+      camion.cargar(residuosRadioactivos)
+      assert.equals(bateriaAntiAerea, camion.tieneAlgoPeligrosoNivel(0))
+      assert.equals(bateriaAntiAerea, camion.tieneAlgoPeligrosoNivel(15))
+      
+    }
+
+    test "cosas peligrosas" {
+        
+        bateriaAntiAerea.cargarMisiles()
+        camion.cargar(knightRider)
+        camion.cargar(bateriaAntiAerea)
+        assert.equals(#{bateriaAntiAerea}, camion.cosasQueSonMasPeligrosasQueNivel(15)) 
+        assert.equals(#{bateriaAntiAerea}, camion.cosasMasPeligrosasQue(bumblebee))
+        assert.equals(#{bateriaAntiAerea, knightRider}, camion.cosasQueSonMasPeligrosasQueNivel(2)) 
+    }
+
+    test "puede circular en ruta" {
+      
+        bumblebee.modo("robot")
+        camion.cargar(bumblebee)
+        paqueteDeLadrillos.cantidadDeLadrillosPorPaquete(300)  
+        camion.cargar(paqueteDeLadrillos)
+        assert.that(camion.puedeCircularEnRutaNivel(20))
+
+    }
+}
+
