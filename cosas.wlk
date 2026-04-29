@@ -47,24 +47,25 @@ object arenaAGranel {
 		
 	}
 	
-
 	method nivelPeligrosidad() {
     
-	
 	return 
+	
 		if (modo == "auto") {
         
-		self.peligrosidadAuto()
+			self.peligrosidadAuto()
     	} 
-	else if (modo == "robot") {
+		
+		else if (modo == "robot") {
         
-		self.peligrosidadRobot()
-    } 
+			self.peligrosidadRobot()
+    	} 
 		else {
         
 		self.error("Bumblebee no está en un modo correcto")
-    }
-}
+		}
+	
+	}
 
 	method peligrosidadAuto() {
 	  
@@ -89,8 +90,7 @@ object arenaAGranel {
 		modo = _modo
 
 	}
-
- }
+}
 
 object paqueteDeLadrillos {
   
@@ -223,6 +223,49 @@ object residuosRadioactivos {
 
 }
 
+object contenedorPortuario {
+  
+	const property cosasQueContiene = #{}
 
+	method peso() {
+	  
+		return 100 + cosasQueContiene.sum({objeto => objeto.peso()})
+
+	}
+
+	method nivelPeligrosidad() {
+	
+		const peligrosidadDeCosas = cosasQueContiene.map({objeto => objeto.nivelPeligrosidad()})
+		
+		return peligrosidadDeCosas.maxIfEmpty({0})
+
+
+	}
+}
+
+object embalajeDeSeguridad {
+  
+	var cosaQueEnvuelve = null 
+
+	method cosaQueEnvuelve(_cosaQueEnvuelve) {
+	  
+		cosaQueEnvuelve = _cosaQueEnvuelve
+
+	}
+	
+	
+	method peso() {
+	  
+		return cosaQueEnvuelve.peso()
+
+	}
+
+	method nivelPeligrosidad() {
+	  
+		return cosaQueEnvuelve.nivelPeligrosidad() / 2
+
+	}
+
+}
 
 

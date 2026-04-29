@@ -1,6 +1,7 @@
 import cosas.*
 
 object camion {
+	
 	const property cosas = #{}
 		
 	method cargar(unaCosa) {
@@ -92,6 +93,19 @@ object camion {
 	method tieneAlgoMasPeligrosoQueNivel(unNivel) {
 	  
 		return cosas.any({objeto => objeto.nivelPeligrosidad() >= unNivel})
+
+	}
+
+	method tieneAlgoQuePeseEntreY(primerValor, segundoValor) {
+	  
+	return cosas.any({ objeto => objeto.peso().between(primerValor, segundoValor) })
+
+	}
+
+	method cosaMasPesadaDelCamion() {
+	  
+		return cosas.max({ objeto => objeto.peso() })
+
 
 	}
 
