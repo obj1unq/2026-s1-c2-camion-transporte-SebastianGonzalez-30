@@ -4,6 +4,12 @@ object camion {
 	
 	const property cosas = #{}
 		
+	method cosas() {
+	  
+		return cosas
+
+	}
+	
 	method cargar(unaCosa) {
 		
 		cosas.add(unaCosa)
@@ -108,6 +114,43 @@ object camion {
 
 
 	}
+
+	method pesosDeLasCosasDelCamion() {
+	  
+		return cosas.map({objeto => objeto.peso()})
+
+	}
+
+	method cantidadDeBultosTransportados() {
+	  
+
+		return cosas.sum({objeto => objeto.bultosQueOcupa()})
+
+
+	}
+
+	method accidente() {
+	  
+		cosas.forEach({objeto => objeto.consecuenciasDeAccidente()})
+
+
+	}
+
+	method quitarCosas() {
+	  
+		cosas.clear()
+
+	}
+
+	method transportar(destino, camino) {
+	  
+		if(camino.cumpleCondicionesDeViaje()) {
+
+			destino.guardarCosas()
+		}
+
+	}
+
 
 }
 

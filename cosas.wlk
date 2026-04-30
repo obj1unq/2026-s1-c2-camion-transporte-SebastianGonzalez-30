@@ -11,6 +11,19 @@ object knightRider {
 		return 10 
 	
 	}
+
+	method bultosQueOcupa() {
+	  
+		return 1
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		// No le pasa nada, es para mantener el polimorfismo
+
+	}
+
 }
 
 object arenaAGranel {
@@ -33,6 +46,18 @@ object arenaAGranel {
 		
 		return 1 
 	
+	}
+
+	method bultosQueOcupa() {
+	  
+		return 1
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		peso = peso + 20
+
 	}
 
 }
@@ -90,7 +115,31 @@ object arenaAGranel {
 		modo = _modo
 
 	}
-}
+
+	method bultosQueOcupa() {
+	  
+		return 2
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		if (modo == "auto") {
+        
+			modo = "robot"
+    	} 
+		
+		else if (modo == "robot") {
+        
+			modo = "auto"
+    	} 
+		
+		}
+
+
+	}
+
+
 
 object paqueteDeLadrillos {
   
@@ -123,6 +172,40 @@ object paqueteDeLadrillos {
 	method peso() {
 	  
 		return cantidadDeLadrillosPorPaquete * self.pesoPorLadrillo()
+
+	}
+
+	method bultosQueOcupa() {
+	  
+		return 
+	
+		if (self.cantidadDeLadrillosPorPaquete() <= 100) {
+        
+			1
+    	} 
+		
+		else if (self.cantidadDeLadrillosPorPaquete().between(101, 300)) {
+        
+			2
+    	} 
+		else {
+        
+			3
+
+		}
+	
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		if (cantidadDeLadrillosPorPaquete <= 12) {
+
+			cantidadDeLadrillosPorPaquete = 0
+		}
+		else {
+
+			cantidadDeLadrillosPorPaquete = cantidadDeLadrillosPorPaquete - 12
+		}
 
 	}
 
@@ -196,6 +279,25 @@ object bateriaAntiAerea {
 		return 0
 
 	}
+
+	method bultosQueOcupa() {
+	  
+		return if (misilesCargados) {
+
+			2
+		} else {
+
+			1
+		}
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		misilesCargados = false
+
+	}
+
 }
 
 
@@ -221,11 +323,22 @@ object residuosRadioactivos {
 
 	}
 
+	method bultosQueOcupa() {
+	  
+		return 1
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		peso = peso + 15
+
+	}
 }
 
 object contenedorPortuario {
   
-	const property cosasQueContiene = #{}
+	var property cosasQueContiene = #{}
 
 	method peso() {
 	  
@@ -241,6 +354,25 @@ object contenedorPortuario {
 
 
 	}
+
+	method bultosQueOcupa() {
+	  
+		return 1 + cosasQueContiene.sum({objeto => objeto.bultosQueOcupa()})
+
+	}
+
+	method cosasQueContiene(_cosasQueContiene) {
+	  
+		cosasQueContiene = _cosasQueContiene
+
+	}
+
+	method consecuenciasDeAccidente() {
+
+		cosasQueContiene.forEach({ objeto => objeto.consecuenciasDeAccidente()})
+
+	}
+
 }
 
 object embalajeDeSeguridad {
@@ -263,6 +395,18 @@ object embalajeDeSeguridad {
 	method nivelPeligrosidad() {
 	  
 		return cosaQueEnvuelve.nivelPeligrosidad() / 2
+
+	}
+
+	method bultosQueOcupa() {
+	  
+		return 2
+
+	}
+
+	method consecuenciasDeAccidente() {
+	  
+		// no hace nada, es para polimorfismo
 
 	}
 
